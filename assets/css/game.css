@@ -1,0 +1,82 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Container Styling */
+  .game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 500px; /* Max width to make the content look neat */
+    padding: 40px;
+    background-color: rgba(151, 172, 194, 0.8); /* Slight white background with transparency */
+
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  }
+  
+  /* Header Styling */
+  .game-header {
+    margin-bottom: 20px;
+  }
+  
+  .game-header h1 {
+    font-size: 3.5rem;
+    color: #2e3d49; /* Darker text color */
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .game-header p {
+    font-size: 1.25rem;
+    color: #6c757d;
+    line-height: 1.5;
+    margin-bottom: 30px;
+  }
+  
+  /* Button Container */
+  .game-button-container {
+    margin-top: 30px;
+  }
+  
+  /* Button Styling */
+  .game-btn {
+    padding: 16px 32px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #007bff; /* Bright blue */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Full-width button */
+  }
+  
+  .game-btn:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: translateY(-4px); /* Slight lift effect */
+  }
+  
+  .game-btn:focus {
+    outline: none;
+  }
+  
+  /* Shadow Effect */
+  .game-btn:active {
+    transform: translateY(2px); /* Button presses down when clicked */
+  }
+  

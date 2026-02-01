@@ -1,0 +1,34 @@
+# System Requirements
+
+To run this project, ensure your system meets the following requirements:
+
+- **Elixir**: Version 1.14 or later (~> 1.14)
+- **Erlang**: Compatible with your Elixir version (usually OTP 25+)
+- **PostgreSQL**: Version 12 or later recommended (must be running and accepting connections)
+
+# Dependencies
+
+The project relies on the following key libraries (managed via `mix.exs`):
+
+- **phoenix**: ~> 1.7.18
+- **phoenix_live_view**: ~> 1.0.0
+- **ecto_sql**: ~> 3.10
+- **postgrex**: >= 0.0.0
+- **scenic**: (NOT USED - this is a web app)
+- **bandit**: ~> 1.5 (Web server)
+
+# Installation & Setup
+
+1.  **Install System Dependencies**:
+    - [Install Elixir](https://elixir-lang.org/install.html)
+    - [Install PostgreSQL](https://www.postgresql.org/download/)
+
+2.  **Install Project Dependencies**:
+    Running the setup script will fetch all Mix dependencies and compile assets.
+    ```bash
+    mix setup
+    ```
+
+3.  **Database Setup**:
+    The `mix setup` command also attempts to create and migrate the database.
+    Ensure your database credentials in `config/dev.exs` are correct.

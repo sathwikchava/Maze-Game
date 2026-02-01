@@ -1,0 +1,5 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./maze.css";
+@import "./game.css";  /* Add this line to import the new game CSS */

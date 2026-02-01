@@ -1,0 +1,129 @@
+<div class="page-container">
+  <!-- IQ Score Display - Now in top-left corner -->
+  <div class="fixed top-4 left-4 bg-black bg-opacity-70 p-3 rounded-lg border border-yellow-500 text-yellow-500 z-50">
+    <%= if @current_iq do %>
+      <div class="text-center">
+        <p class="text-lg font-bold">Player IQ Score</p>
+        <p class="text-4xl font-bold text-yellow-400"><%= @current_iq %></p>
+        <p class="text-xs mt-1">Calculated at level <%= @last_iq_calculation %></p>
+        <p class="text-xs mt-1">Next calculation at level <%= ceil(@level / 5) * 5 %></p>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <p class="text-lg font-bold">IQ Score Pending</p>
+        <p class="text-sm mt-1">Complete level <%= ceil(@level / 5) * 5 %></p>
+        <p class="text-xs mt-1">for first IQ calculation</p>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Level and Stats Display - Moved to top-right -->
+  <div class="fixed top-4 right-4 bg-black bg-opacity-70 p-3 rounded-lg border border-green-500 text-green-500">
+    <p class="text-xl font-bold">Level <%= @level %></p>
+    <p class="text-sm">Maze Size: <%= @rows %>x<%= @cols %></p>
+    <p class="text-sm">Points: <%= @points %></p>
+    <%= if not @show_success do %>
+      <p class="text-sm">Steps: <%= @steps_taken %></p>
+    <% end %>
+  </div>
+
+  <!-- Success Modal - Centered when shown -->
+  <%= if @show_success do %>
+    <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-90 p-6 rounded-lg border border-green-500 text-green-500 z-50">
+      <h2 class="text-2xl font-bold mb-4">Level Complete!</h2>
+      <%= if not @auto_move do %>
+        <p class="text-lg">Steps: <%= @steps_taken %></p>
+        <%= if @solution_time do %>
+          <p class="text-lg">Time: <%= Float.round(@solution_time, 2) %>s</p>
+        <% end %>
+        <%= if @best_time do %>
+          <p class="text-sm mt-2">Best Time: <%= Float.round(@best_time, 2) %>s</p>
+        <% end %>
+        <%= if @best_steps do %>
+          <p class="text-sm">Best Steps: <%= @best_steps %></p>
+        <% end %>
+        
+        <div class="flex gap-4 mt-6">
+          <button 
+            class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors text-white font-bold"
+            phx-click="next_level"
+          >
+            Next Level
+          </button>
+          <button 
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-white font-bold"
+            phx-click="play_again"
+          >
+            Play Again
+          </button>
+        </div>
+      <% else %>
+        <p class="text-lg">Auto-move Steps: <%= @auto_move_steps %></p>
+        <%= if @solution_time do %>
+          <p class="text-lg">Auto-move Time: <%= Float.round(@solution_time, 2) %>s</p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Auto-move Controls -->
+  <div class="fixed bottom-4 left-4 z-50">
+    <button 
+      class={"px-4 py-2 rounded-lg transition-colors font-bold #{if @auto_move, do: "bg-red-600 hover:bg-red-700", else: "bg-blue-600 hover:bg-blue-700"} text-white"}
+      phx-click="toggle_auto_move"
+    >
+      <%= if @auto_move do %>
+        Stop Auto-Move
+      <% else %>
+        Start Auto-Move
+      <% end %>
+    </button>
+  </div>
+
+  <div
+    class="maze-wrapper"
+    style={"--rows: #{@rows}; --cols: #{@cols};"}
+    phx-window-keydown="move_object"
+  >
+    <div class="maze-outer-border">
+      <div class="maze-container" style={"grid-template-columns: repeat(#{@cols}, 1fr)"}>
+        <%= for {row, row_index} <- Enum.with_index(@maze) do %>
+          <%= for {cell, col_index} <- Enum.with_index(row) do %>
+            <div class={[
+              "maze-cell",
+              row_index == 0 and col_index == 0 and "start-cell",
+              row_index == @rows - 1 and col_index == @cols - 1 and "end-cell",
+              row_index == elem(@object_position, 0) and col_index == elem(@object_position, 1) and "object-cell",
+              Enum.member?(@path, {row_index, col_index}) and "path-preview"
+            ]}>
+              <div class={[
+                "wall-north",
+                not elem(cell, 0) and "wall-hidden",
+                row_index == 0 and "boundary-wall"
+              ]}></div>
+              <div class={[
+                "wall-east",
+                not elem(cell, 1) and "wall-hidden",
+                col_index == @cols - 1 and "boundary-wall"
+              ]}></div>
+              <div class={[
+                "wall-west",
+                not elem(cell, 2) and "wall-hidden",
+                col_index == 0 and "boundary-wall"
+              ]}></div>
+              <div class={[
+                "wall-south",
+                not elem(cell, 3) and "wall-hidden",
+                row_index == @rows - 1 and "boundary-wall"
+              ]}></div>
+
+              <%= if @object_position == {row_index, col_index} do %>
+                <div class={"object #{if @auto_move, do: "auto-moving"}"}></div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

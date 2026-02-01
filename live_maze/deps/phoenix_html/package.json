@@ -1,0 +1,16 @@
+{
+  "name": "phoenix_html",
+  "version": "4.2.0",
+  "main": "./priv/static/phoenix_html.js",
+  "repository": {},
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json",
+    "priv/static/phoenix_html.js"
+  ],
+  "dependencies": {
+    "phoenix_html": "file:"
+  }
+}
