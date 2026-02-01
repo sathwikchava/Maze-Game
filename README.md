@@ -51,7 +51,6 @@ Follow these steps to get the project running locally on your machine.
 ### 1. Clone the Repository
 ```bash
 git clone <(https://github.com/sathwikchava/maze-game)>
-cd "Maze game hackaton"
 ```
 
 ### 2. Setup Dependencies & Database
