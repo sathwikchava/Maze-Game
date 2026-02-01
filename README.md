@@ -50,7 +50,7 @@ Follow these steps to get the project running locally on your machine.
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository_url>
+git clone <(https://github.com/sathwikchava/maze-game)>
 cd "Maze game hackaton"
 ```
 
